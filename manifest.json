@@ -1,0 +1,9 @@
+{
+    "domain": "crypto",
+    "name": "Crypto state",
+    "documentation": "github",
+    "dependencies": [],
+    "codeowners": [],
+    "requirements": [],
+    "version": "0.1.0"
+}
