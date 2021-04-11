@@ -3,6 +3,5 @@
 ## Info
 
 ## Available options
-#
 
 ## Installation
