@@ -1,9 +1,9 @@
 {
     "domain": "crypto",
     "name": "Crypto state",
-    "documentation": "github",
+    "documentation": "https://github.com/PepegaBruh/CryptoTrakcer",
     "dependencies": [],
-    "codeowners": [],
+    "codeowners": ["@PepegaBruh"],
     "requirements": [],
-    "version": "0.1.0"
+    "version": "1.0.0"
 }

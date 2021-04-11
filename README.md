@@ -1,7 +1,6 @@
 # CryptoTracker
 
 ## Info
-#
 
 ## Available options
 #
