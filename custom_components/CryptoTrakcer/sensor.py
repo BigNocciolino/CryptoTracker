@@ -7,6 +7,9 @@ from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
+from homeassistant.const import (
+    CONF_NAME
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -18,7 +21,9 @@ ATTRIBUTION = "Data provided by cryptonator api"
 
 DOMAIN = "Crypto"
 
-P
+PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
+    vol.Optional(CONF_NAME): cv.string
+})
 
 # TODO add a config to get the request to do
 compareCurrency = ["eur", "usd"]
@@ -51,20 +56,21 @@ def toPython():
 
 def setup_platform(hass, config, add_entity, discovery_info=True):
     """Setup the currency sensor"""
+    name = config.get(CONF_NAME)
 
-    add_entity([CurrencySensor(self, DOMAIN, toPython())], True)
+    add_entity([CurrencySensor(toPython(), DOMAIN)], True)
 
 class CurrencySensor(Entity):
     
     def __init__(self, data, name):
         """Inizialize sensor"""
-        self.data = data
-        self.name = name
+        self._data = data
+        self._name = name
 
     @property
     def name(self):
         """Return the name sensor"""
-        return self.name
+        return self._name or DOMAIN
 
     @property
     def icon(self):
@@ -79,9 +85,9 @@ class CurrencySensor(Entity):
     @property
     def update(self):
         """Get the latest update fron the api"""
-        self.data.update()
+        self._data.update()
 
-        self.data = toPython() 
+        self._data = toPython() 
 
 class CyrrencyData():
     """Get the latest update from the sensor"""
