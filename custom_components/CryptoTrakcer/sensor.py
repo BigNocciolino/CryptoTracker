@@ -58,14 +58,15 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
     name = config.get(CONF_NAME)
 
-    add_entities([CurrencySensor(toPython(), DOMAIN)], True)
+    add_entities([CurrencySensor(toPython(), DOMAIN, 10)], True)
 
 class CurrencySensor(Entity):
     
-    def __init__(self, state, name):
+    def __init__(self, state, name, interval):
         """Inizialize sensor"""
         self._state = state
         self._name = name
+        self.update = Throttle(interval)(self._update)
 
     @property
     def name(self):
