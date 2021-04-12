@@ -8,7 +8,7 @@ from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.const import (
-    CONF_NAME
+    CONF_NAME,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ ICON = "mdi:cash-multiple"
 
 SCAN_INTERVAL = timedelta(minutes=5)
 
-ATTRIBUTION = "Data provided by cryptonator api"
+ATTRIBUTION = "data provided by cryptonator api"
 
 DOMAIN = "Crypto"
 
@@ -54,17 +54,17 @@ def toPython():
 
     return respParsed["ticker"]["price"]
 
-def setup_platform(hass, config, add_entity, discovery_info=True):
+def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
     name = config.get(CONF_NAME)
 
-    add_entity([CurrencySensor(toPython(), DOMAIN)], True)
+    add_entities([CurrencySensor(toPython(), DOMAIN)], True)
 
 class CurrencySensor(Entity):
     
-    def __init__(self, data, name):
+    def __init__(self, state, name):
         """Inizialize sensor"""
-        self._data = data
+        self._state = state
         self._name = name
 
     @property
@@ -85,17 +85,5 @@ class CurrencySensor(Entity):
     @property
     def update(self):
         """Get the latest update fron the api"""
-        self._data.update()
 
-        self._data = toPython() 
-
-class CyrrencyData():
-    """Get the latest update from the sensor"""
-
-    def __init__(self):
-        """Inizialize the data object"""
-        self.ticker = None
-
-    def update(self):
-        """Get thelatest data from yhe api"""
-        self.ticker = toPython()
+        self._state = toPython() 
