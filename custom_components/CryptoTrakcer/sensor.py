@@ -16,6 +16,8 @@ SCAN_INTERVAL = timedelta(minutes=5)
 
 ATTRIBUTION = "Data provided by cryptonator api"
 
+DOMAIN = "Crypto"
+
 # TODO add a config to get the request to do
 compareCurrency = ["eur", "usd"]
 needCompare = ["doge","btc","eth"]
@@ -48,13 +50,14 @@ def toPython():
 def setup_platform(hass, config, add_entity, discovery_info= True):
     """Setup the currency sensor"""
 
-    add_entity([CurrencySensor(self, toPython())])
+    add_entity([CurrencySensor(self, DOMAIN, toPython())])
 
 class CurrencySensor(Entity):
     
     def __init__(self, data):
         """Inizialize sensor"""
         self.data = data
+        self.name = name
 
     @property
     def name(self):
