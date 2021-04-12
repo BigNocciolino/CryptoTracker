@@ -18,6 +18,8 @@ ATTRIBUTION = "Data provided by cryptonator api"
 
 DOMAIN = "Crypto"
 
+P
+
 # TODO add a config to get the request to do
 compareCurrency = ["eur", "usd"]
 needCompare = ["doge","btc","eth"]
@@ -47,14 +49,14 @@ def toPython():
 
     return respParsed["ticker"]["price"]
 
-def setup_platform(hass, config, add_entity, discovery_info= True):
+def setup_platform(hass, config, add_entity, discovery_info=True):
     """Setup the currency sensor"""
 
-    add_entity([CurrencySensor(self, DOMAIN, toPython())])
+    add_entity([CurrencySensor(self, DOMAIN, toPython())], True)
 
 class CurrencySensor(Entity):
     
-    def __init__(self, data):
+    def __init__(self, data, name):
         """Inizialize sensor"""
         self.data = data
         self.name = name
@@ -68,6 +70,11 @@ class CurrencySensor(Entity):
     def icon(self):
         """Return the default icon"""
         return ICON
+
+    @property
+    def unit_of_measurement(self):
+        """Return the unit of measurement of this entity, if any."""
+        return "EUR"
 
     @property
     def update(self):
