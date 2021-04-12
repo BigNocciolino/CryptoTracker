@@ -3,7 +3,8 @@ import requests
 import json
 import logging
 
-from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorEntity
+from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
@@ -22,50 +23,34 @@ needCompare = ["doge","btc","eth"]
 url = "https://api.cryptonator.com/api/ticker/{0}-{1}"
 
 def getRequest(toCompare, comapred):
+    """get The request from the api"""
     parsedUrl = url.format(toCompare, comapred)
     #The headers are used to simulate a human request
     req = requests.get(parsedUrl, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"}) 
 
     return req
 
-#def getStatusCode():
-#   return getRequest(compareCurrency, needCompare).status_code
-
 def toJson():
+    """Transofrm the request into a json"""
     jsone = []
+    #This is for
     jsone.append(getRequest("doge", "eur").json())
     return jsone
     
 def toPython():
+    """Tranform json in python library"""
     jsone = toJson()
     resp = json.dumps(jsone)
     respParsed = json.loads(resp)
 
     return respParsed["ticker"]["price"]
 
-#def main():
-#    jsone = toJson()
-#
-#    for i in range(len(jsone)):
-#        resp = json.dumps(jsone[i])
-#        respParsed = json.loads(resp)
-#        if respParsed["success"] == True:
-#            print("Comparing " + respParsed["ticker"]["base"] + " " + respParsed["ticker"]["target"])
-#            print(json.dumps(jsone[i], indent=4, sort_keys=True))
-#        else:
-#            print ("Error parsing the request")
-
 def setup_platform(hass, config, add_entity, discovery_info= True):
     """Setup the currency sensor"""
 
-    data = CyrrencyData()
-    dev = []
+    add_entity([CurrencySensor(self, toPython())])
 
-    dev.append(CurrencySensor(data))
-
-    add_entity(dev, True)
-
-class CurrencySensor(SensorEntity):
+class CurrencySensor(Entity):
     
     def __init__(self, data):
         """Inizialize sensor"""
