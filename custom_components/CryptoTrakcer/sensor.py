@@ -9,6 +9,7 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.const import (
     CONF_NAME,
+    STATE_UNKNOWN,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -57,16 +58,15 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
     name = config.get(CONF_NAME)
 
-    add_entities([CurrencySensor(toPython(), DOMAIN, 10)], True)
+    add_entities([CurrencySensor(name)], True)
 
 class CurrencySensor(SensorEntity):
     
-    def __init__(self, state, name, interval):
+    def __init__(self, hass, name):
         """Inizialize sensor"""
-        self._state = state
+        self._state = STATE_UNKNOWN
         self._name = name
-        self._unit_of_measurement = "EUR"
-        self._update = Throttle(interval)(self._update)
+        self._hass = hass
 
     @property
     def name(self):
@@ -85,6 +85,7 @@ class CurrencySensor(SensorEntity):
 
     @property
     def state(self):
+        """Return the state of the sensor"""
         return self._state
 
     @property
