@@ -58,7 +58,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
     name = config.get(CONF_NAME)
 
-    add_entities([CurrencySensor(name)], True)
+    add_entities([CurrencySensor(hass, name)], True)
 
 class CurrencySensor(SensorEntity):
     
