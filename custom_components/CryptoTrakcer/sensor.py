@@ -19,7 +19,7 @@ SCAN_INTERVAL = timedelta(minutes=5)
 
 ATTRIBUTION = "data provided by cryptonator api"
 
-DOMAIN = "Crypto"
+DOMAIN = "crypto"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME): cv.string
@@ -41,9 +41,8 @@ def getRequest(toCompare, comapred):
 
 def toJson():
     """Transofrm the request into a json"""
-    jsone = []
     #This is for TESTING ONLY
-    jsone.append(getRequest("doge", "eur").json())
+    jsone = (getRequest("doge", "eur").json())
     return jsone
     
 def toPython():
@@ -85,7 +84,14 @@ class CurrencySensor(SensorEntity):
         return "EUR"
 
     @property
+    def state(self):
+        return self._state
+
+    @property
     def update(self):
         """Get the latest update fron the api"""
 
         self._state = toPython() 
+
+if __name__ == "__main__":
+    print(toPython())
