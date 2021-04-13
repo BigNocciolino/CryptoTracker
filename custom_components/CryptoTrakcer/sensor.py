@@ -20,7 +20,7 @@ SCAN_INTERVAL = timedelta(minutes=5)
 
 ATTRIBUTION = "data provided by cryptonator api"
 
-DOMAIN = "crypto"
+DOMAIN = "cryptostate"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME): cv.string
