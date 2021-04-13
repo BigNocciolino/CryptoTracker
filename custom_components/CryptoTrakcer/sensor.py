@@ -88,7 +88,6 @@ class CurrencySensor(SensorEntity):
         """Return the state of the sensor"""
         return self._state
 
-    @property
     def update(self):
         """Get the latest update fron the api"""
 
