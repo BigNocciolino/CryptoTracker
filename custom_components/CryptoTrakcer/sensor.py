@@ -1,6 +1,7 @@
 from datetime import timedelta
 import requests
 import json
+from collections import defaultdict
 import logging
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -66,7 +67,7 @@ class CurrencySensor(Entity):
         """Inizialize sensor"""
         self._state = state
         self._name = name
-        self.update = Throttle(interval)(self._update)
+        self._update = Throttle(interval)(self._update)
 
     @property
     def name(self):
