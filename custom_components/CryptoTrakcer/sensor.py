@@ -4,8 +4,7 @@ import json
 from collections import defaultdict
 import logging
 
-from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.helpers.entity import Entity
+from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorEntity
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.const import (
@@ -43,7 +42,7 @@ def getRequest(toCompare, comapred):
 def toJson():
     """Transofrm the request into a json"""
     jsone = []
-    #This is for
+    #This is for TESTING ONLY
     jsone.append(getRequest("doge", "eur").json())
     return jsone
     
@@ -61,12 +60,13 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     add_entities([CurrencySensor(toPython(), DOMAIN, 10)], True)
 
-class CurrencySensor(Entity):
+class CurrencySensor(SensorEntity):
     
     def __init__(self, state, name, interval):
         """Inizialize sensor"""
         self._state = state
         self._name = name
+        self._unit_of_measurement = "EUR"
         self._update = Throttle(interval)(self._update)
 
     @property
