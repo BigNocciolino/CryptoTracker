@@ -92,6 +92,3 @@ class CurrencySensor(SensorEntity):
         """Get the latest update fron the api"""
 
         self._state = toPython() 
-
-if __name__ == "__main__":
-    print(toPython())
