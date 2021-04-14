@@ -33,19 +33,16 @@ CONF_ARG = "arg"
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME, default=DOMAIN): cv.string,
 
-    vol.Required(CONF_CURRENCY, default=DEFAULT_CURRENCY): vol.All(
-        cv.ensure_list,
-        [
-            vol.Schema({
-                vol.Optional(CONF_ARG):cv.string
-            })
-        ]
-    )
-
-#    vol.schema ({
-#        vol.Required(CONF_CURRENCY, default=DEFAULT_CURRENCY): cv.string,
-#        vol.Optional(CONF_ARG, default=DEFAULT_FIAT): cv.string,
-#    })   
+#    vol.Required(CONF_CURRENCY, default=DEFAULT_CURRENCY): vol.All(
+#        cv.ensure_list,
+#        
+#            vol.Schema({
+#                vol.Optional(CONF_ARG):cv.string
+#            })
+#        ]
+#    )
+    vol.Required(CONF_CURRENCY, default=DEFAULT_CURRENCY): cv.string,
+    vol.Optional(CONF_ARG, default=DEFAULT_FIAT): cv.string,   
 })
 
 url = "https://api.cryptonator.com/api/ticker/{0}-{1}"
