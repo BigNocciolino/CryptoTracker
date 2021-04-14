@@ -28,21 +28,12 @@ DEFAULT_CURRENCY = "DOGE"
 
 DOMAIN = "cryptostate"
 
-CONF_ARG = "arg"
+CONF_FIAT = "fiat"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Optional(CONF_NAME, default=DOMAIN): cv.string,
-
-#    vol.Required(CONF_CURRENCY, default=DEFAULT_CURRENCY): vol.All(
-#        cv.ensure_list,
-#        
-#            vol.Schema({
-#                vol.Optional(CONF_ARG):cv.string
-#            })
-#        ]
-#    )
     vol.Required(CONF_CURRENCY, default=DEFAULT_CURRENCY): cv.string,
-    vol.Optional(CONF_ARG, default=DEFAULT_FIAT): cv.string,   
+    vol.Required(CONF_FIAT, default=DEFAULT_FIAT): cv.string,   
+    vol.Optional(CONF_NAME, default=DOMAIN): cv.string,
 })
 
 url = "https://api.cryptonator.com/api/ticker/{0}-{1}"
@@ -63,7 +54,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
     name = config.get(CONF_NAME)
     currency = config.get(CONF_CURRENCY)
-    fiat = config.get(CONF_ARG)
+    fiat = config.get(CONF_FIAT)
 
     add_entities([CurrencySensor(hass, name, currency, fiat)], True)
 
