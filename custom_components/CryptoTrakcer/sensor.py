@@ -6,9 +6,7 @@ import logging
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorEntity
 import homeassistant.helpers.config_validation as cv
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import voluptuous as vol
-#TODO Switch to Fiat and crypto
 from homeassistant.const import (
     CONF_NAME,
     STATE_UNKNOWN,
@@ -39,16 +37,11 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 url = "https://api.cryptonator.com/api/ticker/{0}-{1}"
 
-def parseUrl(crypto, fiat):
-    parsedUrl = url.format(crypto, fiat)
-
-    return parseUrl
-
-
-def getData(url):
+def getData(crypto, fiat):
     """Get The request from the api"""
+    parsedUrl = url.format(crypto, fiat)
     #The headers are used to simulate a human request
-    req = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"}) 
+    req = requests.get(parsedUrl, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"}) 
 
     jsone = req.json()
     resp = json.dumps(jsone)
@@ -59,21 +52,20 @@ def getData(url):
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
     name = config.get(CONF_NAME)
-    fiat = config.get(CONF_FIAT)
     currency = config.get(CONF_CURRENCY)
+    fiat = config.get(CONF_FIAT)
 
-    session = parseUrl(currency, fiat)
-
-    add_entities([CurrencySensor(hass, name, session)], True)
+    add_entities([CurrencySensor(hass, name, fiat, currency)], True)
 
 class CurrencySensor(SensorEntity):
     
-    def __init__(self, hass, name, session):
+    def __init__(self, hass, name, fiat, currency):
         """Inizialize sensor"""
         self._state = STATE_UNKNOWN
         self._name = name
         self._hass = hass
-        self._session = session
+        self._fiat = fiat
+        self._currency = currency
 
     @property
     def name(self):
@@ -98,4 +90,4 @@ class CurrencySensor(SensorEntity):
     def update(self):
         """Get the latest update fron the api"""
 
-        self._state = getData(self._session)
+        self._state = getData(self._currency, self._fiat)
