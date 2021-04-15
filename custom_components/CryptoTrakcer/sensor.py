@@ -64,6 +64,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     for resource in config[CONF_RESOURCES]:
         compare = resource[CONF_COMPARE]
+        name = DOMAIN
         
         entities.append(CurrencySensor(hass, name, compare))
 
