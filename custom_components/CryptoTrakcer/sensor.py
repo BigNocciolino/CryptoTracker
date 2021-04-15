@@ -39,7 +39,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     ),
 })
 
-url = "https://api.cryptonator.com/api/ticker/{0}"
+url = "https://api.cryptonator.com/api/ticker/{}"
 
 def getData(compare):
     """Get The request from the api"""
@@ -51,11 +51,13 @@ def getData(compare):
     resp = json.dumps(jsone)
     respParsed = json.loads(resp)
 
-    if (respParsed["success"] == True):
-        return respParsed["ticker"]["price"]
-    else:
-        _LOGGER.warn("Request unsuccessful")
-        _LOGGER.error(respParsed["error"])
+    return respParsed["ticker"]["price"]
+
+#    if (respParsed["success"] == True):
+#        return respParsed["ticker"]["price"]
+#    else:
+#        _LOGGER.warn("Request unsuccessful")
+#        _LOGGER.error(respParsed["error"])
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
