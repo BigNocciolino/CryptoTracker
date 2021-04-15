@@ -70,7 +70,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         
         entities.append(CurrencySensor(hass, name, compare))
 
-    add_entities(entities, True)
+    add_entities([entities], True)
 
 class CurrencySensor(SensorEntity):
     
