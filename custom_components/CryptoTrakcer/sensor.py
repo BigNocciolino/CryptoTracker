@@ -39,7 +39,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     ),
 })
 
-url = "https://api.cryptonator.com/api/ticker/{1}"
+url = "https://api.cryptonator.com/api/ticker/{0}"
 
 def getData(compare):
     """Get The request from the api"""
