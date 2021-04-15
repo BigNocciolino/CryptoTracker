@@ -37,8 +37,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
         [
             vol.Schema({
                 vol.Required(CONF_CURRENCY, default=DEFAULT_CURRENCY): cv.string,
-                vol.Optional(CONF_NAME, default=DOMAIN): cv.string,
-                vol.Optional(CONF_FIAT, default=DEFAULT_FIAT): cv.string,
+                #vol.Optional(CONF_NAME, default=DOMAIN): cv.string,
+                #vol.Optional(CONF_FIAT, default=DEFAULT_FIAT): cv.string,
             })
         ],
     ),
@@ -68,9 +68,9 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     entities = []
 
     for resource in config[CONF_RESOURCES]:
-        fiat = resource[CONF_FIAT]
+        #fiat = resource[CONF_FIAT]
         currency = resource[CONF_CURRENCY]
-        name = resource[CONF_NAME]
+        #name = resource[CONF_NAME]
         
         entities.append(CurrencySensor(hass, name, fiat, currency))
 
@@ -83,7 +83,7 @@ class CurrencySensor(SensorEntity):
         self._state = STATE_UNKNOWN
         self._name = name
         self._hass = hass
-        self._fiat = fiat
+        self._fiat = fiat or DEFAULT_FIAT
         self._currency = currency
 
     @property
