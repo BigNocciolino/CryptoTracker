@@ -29,12 +29,15 @@ CONF_COMPARE = "compare"
 
 DOMAIN = "cryptostate"
 
+CONF_ARG = "arg"
+
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
             vol.Schema({
                 vol.Required(CONF_COMPARE, default=DEFAULT_COMPARE): cv.string,
+                vol.Optional(CONF_ARG, default=DOMAIN): cv.string,
             })
         ],
     )
@@ -68,7 +71,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
-        name = DOMAIN
+        name = resource[CONF_ARG]
         
         entities.append(CurrencySensor(hass, name, compare_))
 
