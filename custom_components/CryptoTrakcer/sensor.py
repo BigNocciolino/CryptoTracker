@@ -65,12 +65,12 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     entities = []
 
     for resource in config[CONF_RESOURCES]:
-        compare = resource[CONF_COMPARE]
+        compare_ = resource[CONF_COMPARE]
         name = DOMAIN
         
-        entities.append(CurrencySensor(hass, name, compare))
+        entities.append(CurrencySensor(hass, name, compare_))
 
-    add_entities([entities], True)
+    add_entities(entities, True)
 
 class CurrencySensor(SensorEntity):
     
@@ -94,7 +94,7 @@ class CurrencySensor(SensorEntity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement of this entity, if any."""
-        return self._fiat
+        return self._compare
 
     @property
     def state(self):
