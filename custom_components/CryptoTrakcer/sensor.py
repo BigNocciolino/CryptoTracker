@@ -11,7 +11,6 @@ from homeassistant.const import (
     CONF_NAME,
     STATE_UNKNOWN,
     CONF_CURRENCY,
-    ATTRIBUTION,
     CONF_RESOURCES,
 )
 
