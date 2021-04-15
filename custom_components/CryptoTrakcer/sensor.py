@@ -89,7 +89,7 @@ class CurrencySensor(SensorEntity):
     @property
     def name(self):
         """Return the name sensor"""
-        return self._name or DOMAIN
+        return self._name
 
     @property
     def icon(self):
@@ -99,7 +99,7 @@ class CurrencySensor(SensorEntity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement of this entity, if any."""
-        return self._compare
+        return "EUR"
 
     @property
     def state(self):
