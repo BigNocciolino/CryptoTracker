@@ -37,15 +37,13 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
                 vol.Required(CONF_COMPARE, default=DEFAULT_COMPARE): cv.string,
             })
         ],
-    ),
+    )
 })
 
-url = "https://api.cryptonator.com/api/ticker/{}"
+url = "https://api.cryptonator.com/api/ticker/{0}"
 
 def getData(compare):
     """Get The request from the api"""
-
-    compare.replace(" ", "-")
 
     parsedUrl = url.format(compare)
     #The headers are used to simulate a human request
