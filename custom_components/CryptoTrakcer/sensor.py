@@ -3,6 +3,7 @@ import requests
 import json
 from collections import defaultdict
 import logging
+import string
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorEntity
 import homeassistant.helpers.config_validation as cv
@@ -43,6 +44,9 @@ url = "https://api.cryptonator.com/api/ticker/{}"
 
 def getData(compare):
     """Get The request from the api"""
+
+    compare.replace(" ", "-")
+
     parsedUrl = url.format(compare)
     #The headers are used to simulate a human request
     req = requests.get(parsedUrl, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"}) 
