@@ -9,6 +9,7 @@ from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorEntity
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.const import (
+    ATTR_ATTRIBUTION,
     CONF_NAME,
     STATE_UNKNOWN,
     CONF_CURRENCY,
@@ -76,7 +77,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         
         entities.append(CurrencySensor(hass, name, compare_))
 
-    add_entities(entities)
+    add_entities(entities, True)
 
 class CurrencySensor(SensorEntity):
     
@@ -108,8 +109,9 @@ class CurrencySensor(SensorEntity):
         return self._state
 
     @property
-    def device_state_attributes(self):
-        return ATTRIBUTION
+    def extra_state_attributes(self):
+        """Return the state attributes of the sensor."""
+        return {ATTR_ATTRIBUTION: ATTRIBUTION}
 
     def update(self):
         """Get the latest update fron the api"""
