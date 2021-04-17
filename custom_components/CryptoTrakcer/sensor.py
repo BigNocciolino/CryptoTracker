@@ -78,7 +78,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
-        name = resource[CONF_ARG]
+        name = resource[CONF_NAME]
         
         entities.append(CurrencySensor(hass, name, compare_))
 
