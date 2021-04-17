@@ -32,6 +32,7 @@ DOMAIN = "cryptostate"
 CONF_ARG = "arg"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
+    
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
@@ -73,7 +74,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_ARG]
         
-        entities.append(CurrencySensor(hass, name, compare_))
+        entities.append(CurrencySensor(hass, name, compare_), True)
 
     add_entities(entities, True)
 
