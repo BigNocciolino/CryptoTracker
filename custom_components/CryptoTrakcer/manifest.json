@@ -3,6 +3,7 @@
     "name": "CryptoState",
     "documentation": "https://github.com/PepegaBruh/CryptoTrakcer",
     "dependencies": [],
+    "issue_tracker": "https://github.com/PepegaBruh/CryptoTrakcer/issues",
     "codeowners": ["@PepegaBruh"],
     "requirements": [],
     "version": "1.1.0"
