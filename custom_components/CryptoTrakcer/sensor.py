@@ -106,7 +106,7 @@ class CurrencySensor(SensorEntity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement of this entity, if any."""
-        return upper(parseUnitOfMesurament(self.compare))
+        return parseUnitOfMesurament(self.compare)
 
     @property
     def state(self):

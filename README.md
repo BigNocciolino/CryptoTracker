@@ -1,29 +1,83 @@
 [![GitHub Activity](https://img.shields.io/github/commit-activity/y/PepegaBruh/CryptoTrakcer?style=for-the-badge)](https://github.com/PepegaBruh/CryptoTrakcer/commits/main)
 # CryptoTracker
 
-This is an integration for Home Assistant to track over 300 cryptocurrencies.
-
 This integration use the [Cryptonator api](https://www.cryptonator.com/api), that's cover 300+ cryptocurrencies from 16 exchanges.
 
-## Installation
+You can use it to track the price of a cryptocurrency and you can customize it as you see fit
 
-For now you must add the custom repository to yout hacs installation.
-## Configuration
+# Installation
+
+For now you must add the custom repository to your hacs installation.
+
+# Configuration
 
 To activate this extension you can put this in your configuration file "configuration.yml"
 
-This is the base configuration file, only the `currency:` is required
+This is an example of a base configuration, you can set the comparison.
+
+To correctly set the integration in the `- compare:` you mast insert thhis forula `{CURRENCY}` **-** `{FIAT CURRENCY}`  or mabye you can invert this formula.
+
+**Alternative you can compare two cryptocurrencies**
+
 ```yaml
 sensor:
 - platform: cryptostate
-  name: Dogecoin # This is option you can use this if you want
-  currency: doge # This section is not case sensitive
-  fiat: eur # This if for the conversion from the currency to money, you can also insert an other crypto
+  resource:
+    #Example of the first formula
+    - compare: doge-eur
+      name: dogecon
+
+    - compare: btc-eur
+      name: bitboin
+
+    - compare: eth-eur
+      name: ethereum
+
+    #Example of the alternative formula
+    - compare: eur-doge
+      name: dogecon
+
+    - compare: eur-btc
+      name: bitboin
+
+    - compare: eur-eth
+      name: ethereum
 ```
+
+## Example of my configuration
+
+[Example][https://github.com/PepegaBruh/CryptoTracker/images/example.png]
+
+### Code
+
+```yaml
+type: 'custom:mini-graph-card'
+entities:
+  - sensor.dogecoin
+name: Dogecoin
+line_color: '#735119'
+line_width: 2
+hours_to_show: 5
+decimals: 8
+points_per_hour: 10
+animate: true
+icon: 'mdi:dog'
+show:
+  labels: false
+color_thresholds:
+  - value: 0.08
+    color: '#008f39'
+  - value: 0.1
+    color: '#ffff00'
+  - value: 0.2
+    color: '#ff0000'
+
+```
+
 ## Available options
 
-Available Options | Type | Info
-:-----------------|:----:|:-----:
-name              |string | Use this to set a custom name to the sensor
-currency          |string  | This is requred and you can set the compare currency
-fiat              |string | This is optional, but by default is set to `eur`
+Available Options | Type | Default | Info
+:-----------------|:----:|:-----:| :----:|
+resource         | `list`  |  None   |You need this, is the enrypoint of the sensors
+compare           | `string` | doge-eur  | Here you can insert the formula of the comparison
+name:             | `string` | cryptostate  |You can set the name for this sensor 
