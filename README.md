@@ -46,7 +46,7 @@ sensor:
 
 ## Example of my configuration
 
-[Example][https://github.com/PepegaBruh/CryptoTracker/blob/main/images/example.png]
+![Example](https://github.com/PepegaBruh/CryptoTracker/blob/main/images/example.png?raw=true)
 
 ### Code
 
