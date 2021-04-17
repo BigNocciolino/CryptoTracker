@@ -24,13 +24,11 @@ SCAN_INTERVAL = timedelta(seconds=30)
 
 ATTRIBUTION = "Data provided by cryptonator api"
 
-DEFAULT_COMPARE = "eur-doge"
+DEFAULT_COMPARE = "doge-eur"
 
 CONF_COMPARE = "compare"
 
 DOMAIN = "cryptostate"
-
-CONF_ARG = "arg"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     
@@ -39,7 +37,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
         [
             vol.Schema({
                 vol.Required(CONF_COMPARE, default=DEFAULT_COMPARE): cv.string,
-                vol.Optional(CONF_ARG, default=DOMAIN): cv.string,
+                vol.Optional(CONF_NAME, default=DOMAIN): cv.string,
             })
         ],
     )
@@ -58,13 +56,20 @@ def getData(compare):
     resp = json.dumps(jsone)
     respParsed = json.loads(resp)
 
-    return respParsed["ticker"]["price"]
 
-#    if (respParsed["success"] == True):
-#        return respParsed["ticker"]["price"]
-#    else:
-#        _LOGGER.warn("Request unsuccessful")
-#        _LOGGER.error(respParsed["error"])
+    if (respParsed["success"] == True):
+        return respParsed["ticker"]["price"]
+    else:
+        _LOGGER.warn("Request unsuccessful")
+        _LOGGER.error(respParsed["error"])
+        return respParsed["error"]
+
+def parseUnitOfMesurament(compare):
+    """Parse the input for the unit of mesurament"""
+
+    s = compare.split("-")
+
+    return s[1]
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
@@ -101,7 +106,7 @@ class CurrencySensor(SensorEntity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement of this entity, if any."""
-        return "EUR"
+        return upper(parseUnitOfMesurament(self.compare))
 
     @property
     def state(self):
