@@ -4,6 +4,7 @@ import json
 from collections import defaultdict
 import logging
 import string
+from homeassistant.util import Throttle
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorEntity
 import homeassistant.helpers.config_validation as cv
@@ -14,6 +15,7 @@ from homeassistant.const import (
     STATE_UNKNOWN,
     CONF_CURRENCY,
     CONF_RESOURCES,
+    CONF_SCAN_INTERVAL,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -69,10 +71,12 @@ def parseUnitOfMesurament(compare):
 
     s = compare.split("-")
 
-    return s[1]
+    return s[1].upper()
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
+
+    update_interval = config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL)
 
     entities = []
 
@@ -80,18 +84,19 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
         
-        entities.append(CurrencySensor(hass, name, compare_))
+        entities.append(CurrencySensor(hass, name, compare_, update_interval))
 
     add_entities(entities, True)
 
 class CurrencySensor(SensorEntity):
     
-    def __init__(self, hass, name, compare):
+    def __init__(self, hass, name, compare, interval):
         """Inizialize sensor"""
         self._state = STATE_UNKNOWN
         self._name = name
         self._hass = hass
         self._compare = compare
+        self.update = Throttle(interval)(self._update)
 
     @property
     def name(self):
@@ -118,7 +123,7 @@ class CurrencySensor(SensorEntity):
         """Return the state attributes of the sensor."""
         return {ATTR_ATTRIBUTION: ATTRIBUTION}
 
-    def update(self):
+    def _update(self):
         """Get the latest update fron the api"""
 
         self._state = getData(self._compare)
