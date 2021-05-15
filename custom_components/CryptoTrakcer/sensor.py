@@ -22,7 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 
 ICON = "mdi:cash-multiple"
 
-SCAN_INTERVAL = timedelta(seconds=30)
+SCAN_INTERVAL = timedelta(seconds=60)
 
 ATTRIBUTION = "Data provided by cryptonator api"
 
