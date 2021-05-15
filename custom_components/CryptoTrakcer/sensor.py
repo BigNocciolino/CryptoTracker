@@ -79,15 +79,13 @@ def parseUnitOfMesurament(compare):
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
 
-    update_interval = config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL)
-
     entities = []
 
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
         
-        entities.append(CurrencySensor(hass, name, compare_, update_interval))
+        entities.append(CurrencySensor(hass, name, compare_, SCAN_INTERVAL))
 
     add_entities(entities, True)
 
