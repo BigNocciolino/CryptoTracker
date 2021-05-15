@@ -13,7 +13,7 @@ from homeassistant.const import (
     ATTR_ATTRIBUTION,
     CONF_NAME,
     STATE_UNKNOWN,
-    CONF_CURRENCY,
+    CONF_SCAN_INTERVAL,
     CONF_RESOURCES,
     CONF_SCAN_INTERVAL,
 )
@@ -33,7 +33,7 @@ CONF_COMPARE = "compare"
 DOMAIN = "cryptostate"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    
+    vol.Optional(CONF_SCAN_INTERVAL, default=SCAN_INTERVAL): cv.string,
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
@@ -80,7 +80,9 @@ def parseUnitOfMesurament(compare):
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
 
-    update_interval = config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL)
+    interval = config.get(CONF_SCAN_INTERVAL)
+
+    update_interval = config.get(CONF_SCAN_INTERVAL, interval)
 
     entities = []
 
