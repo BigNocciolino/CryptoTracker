@@ -79,9 +79,7 @@ def parseUnitOfMesurament(compare):
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
 
-    interval = config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL)
-
-    update_interval = config.get(CONF_SCAN_INTERVAL, interval)
+    update_interval = config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL)
 
     entities = []
 
