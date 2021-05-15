@@ -33,7 +33,7 @@ CONF_COMPARE = "compare"
 DOMAIN = "cryptostate"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Optional(CONF_SCAN_INTERVAL, default=SCAN_INTERVAL): cv.string,
+    vol.Optional(CONF_SCAN_INTERVAL, default=SCAN_INTERVAL): cv.datetime,
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
