@@ -54,9 +54,13 @@ def getData(compare):
     #The headers are used to simulate a human request
     req = requests.get(parsedUrl, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"}) 
 
-    jsone = req.json()
-    resp = json.dumps(jsone)
-    respParsed = json.loads(resp)
+    respParsed = ""
+    if (req.ok):
+        jsone = req.json()
+        resp = json.dumps(jsone)
+        respParsed = json.loads(resp)
+    else:
+        _LOGGER.error("Cannot perform the request")
 
 
     if (respParsed["success"] == True):
