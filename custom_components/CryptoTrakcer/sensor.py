@@ -33,7 +33,6 @@ CONF_COMPARE = "compare"
 DOMAIN = "cryptostate"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Optional(CONF_SCAN_INTERVAL, default=SCAN_INTERVAL): cv.datetime,
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
@@ -80,7 +79,7 @@ def parseUnitOfMesurament(compare):
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Setup the currency sensor"""
 
-    interval = config.get(CONF_SCAN_INTERVAL)
+    interval = config.get(CONF_SCAN_INTERVAL, SCAN_INTERVAL)
 
     update_interval = config.get(CONF_SCAN_INTERVAL, interval)
 
