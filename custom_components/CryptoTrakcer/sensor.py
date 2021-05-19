@@ -13,9 +13,7 @@ from homeassistant.const import (
     ATTR_ATTRIBUTION,
     CONF_NAME,
     STATE_UNKNOWN,
-    CONF_SCAN_INTERVAL,
     CONF_RESOURCES,
-    CONF_SCAN_INTERVAL,
 )
 
 _LOGGER = logging.getLogger(__name__)

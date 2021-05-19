@@ -15,7 +15,7 @@ To activate this extension you can put this in your configuration file "configur
 
 This is an example of a base configuration, you can set the comparison.
 
-To correctly set the integration in the `- compare:` you mast insert thhis forula `{CURRENCY}` **-** `{FIAT CURRENCY}`  or mabye you can invert this formula.
+To correctly set the integration in the `- compare:` you mast insert this forula `{CURRENCY}` **-** `{FIAT CURRENCY}`  or mabye you can invert it.
 
 **Alternative you can compare two cryptocurrencies**
 
@@ -49,6 +49,8 @@ sensor:
 ![Example](https://github.com/PepegaBruh/CryptoTracker/blob/main/images/example.png?raw=true)
 
 ### Code
+
+**I'm using the [mini-graph-card](https://github.com/kalkih/mini-graph-card) custom integration to create a cool graph**
 
 ```yaml
 type: 'custom:mini-graph-card'
