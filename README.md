@@ -1,4 +1,5 @@
 [![GitHub Activity](https://img.shields.io/github/commit-activity/y/PepegaBruh/Cryptotracker?style=for-the-badge)](https://github.com/PepegaBruh/CryptoTracker/commits/main)
+
 # CryptoTracker
 
 This integration use the [Cryptonator api](https://www.cryptonator.com/api), that's cover 300+ cryptocurrencies from 16 exchanges.
@@ -7,7 +8,7 @@ You can use it to track the price of a cryptocurrency and you can customize it a
 
 # Installation
 
-For now you must add the custom repository to your hacs installation.
+This integrantion is in the default repo, so now you can found it in default hacs, searching it
 
 # Configuration
 
