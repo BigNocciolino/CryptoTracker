@@ -21,20 +21,20 @@ sensor:
   resources:
     #Example of the first formula
     - compare: doge-eur
-      name: dogecon
+      name: dogecoin
 
     - compare: btc-eur
-      name: bitboin
+      name: bitcoin
 
     - compare: eth-eur
       name: ethereum
 
     #Example of the alternative formula
     - compare: eur-doge
-      name: dogecon
+      name: dogecoin
 
     - compare: eur-btc
-      name: bitboin
+      name: bitcoin
 
     - compare: eur-eth
       name: ethereum
@@ -69,8 +69,6 @@ color_thresholds:
     color: '#ff0000'
 
 ```
-
-The frontend integration use in theis example: [mini-graph-card](https://github.com/kalkih/mini-graph-card)
 
 ## Available options
 
