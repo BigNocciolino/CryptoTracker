@@ -77,6 +77,8 @@ color_thresholds:
 
 ```
 
+The frontend integration use in theis example: [mini-graph-card](https://github.com/kalkih/mini-graph-card)
+
 ## Available options
 
 Available Options | Type | Default | Info
