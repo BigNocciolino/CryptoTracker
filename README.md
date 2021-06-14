@@ -23,7 +23,7 @@ To correctly set the integration in the `- compare:` you mast insert this forula
 ```yaml
 sensor:
 - platform: cryptostate
-  resource:
+  resources:
     #Example of the first formula
     - compare: doge-eur
       name: dogecon
