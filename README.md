@@ -12,7 +12,7 @@ This integrantion is in the default repo, so now you can found it in default hac
 
 # Configuration
 
-Please before configuring the integration visit the section [Available Fiat currency](##-Available-fiat-currency)
+Please before configuring the integration visit the section [Available Fiat currency](#available-fiat-currency)
 
 To activate this extension you can put this in your configuration file "configuration.yml"
 
