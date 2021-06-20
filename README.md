@@ -12,6 +12,8 @@ This integrantion is in the default repo, so now you can found it in default hac
 
 # Configuration
 
+Please before configuring the integration visit the section [Available Fiat currency](##-Available-fiat-currency)
+
 To activate this extension you can put this in your configuration file "configuration.yml"
 
 This is an example of a base configuration, you can set the comparison.
@@ -84,3 +86,12 @@ Available Options | Type | Default | Info
 resource         | `list`  |  None   |You need this, is the enrypoint of the sensors
 compare           | `string` | doge-eur  | Here you can insert the formula of the comparison
 name:             | `string` | cryptostate  |You can set the name for this sensor 
+
+## Available fiat currency 
+
+| Fiat currency | Abbrviation |
+|:--------------:|:-----------:
+|US Dollar       | (USD)      |
+|Euro            | (EUR)      |
+|Ruble           |  (RUR)     |
+|British Pound Sterling| (GBP)|
