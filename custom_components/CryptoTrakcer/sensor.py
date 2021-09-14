@@ -36,7 +36,7 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Optional(CONF_SCAN_INTERVAL, default=timedelta(minutes=DEFAULT_SCAN_INTERVAL)): cv.positive_time_period,
+    vol.Optional(CONF_SCAN_INTERVAL, default=timedelta(seconds=DEFAULT_SCAN_INTERVAL)): cv.positive_time_period,
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
@@ -88,7 +88,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
-        scan_interval = resource[CONF_SCAN_INTERVAL]
+        scan_interval = timedelta(seconds=resource[CONF_SCAN_INTERVAL])
         
         entities.append(
             CurrencySensor(hass, name, compare_, scan_interval)
