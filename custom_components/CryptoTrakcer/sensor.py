@@ -1,6 +1,7 @@
 import requests
 import json
 from collections import defaultdict
+from datetime import timedelta
 import logging
 import string
 from homeassistant.util import Throttle
@@ -24,16 +25,18 @@ from homeassistant.const import (
 from .const import (
     DEFAULT_COMPARE,
     ICON,
-    SCAN_INTERVAL,
+    DEFAULT_SCAN_INTERVAL,
     ATTRIBUTION,
     CONF_COMPARE,
     DOMAIN,
+    CONF_SCAN_INTERVAL,
 )
 
 
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
+    vol.Optional(CONF_SCAN_INTERVAL, default=timedelta(minutes=DEFAULT_SCAN_INTERVAL)): cv.positive_time_period,
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
@@ -85,9 +88,10 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
+        scan_interval = resource[CONF_SCAN_INTERVAL]
         
         entities.append(
-            CurrencySensor(hass, name, compare_, SCAN_INTERVAL)
+            CurrencySensor(hass, name, compare_, scan_interval)
         )
 
     add_entities(entities, True)
