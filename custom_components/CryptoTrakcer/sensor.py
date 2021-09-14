@@ -85,10 +85,11 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     entities = []
 
+    scan_interval = timedelta(seconds=config.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL))
+
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
-        scan_interval = timedelta(seconds=resource[CONF_SCAN_INTERVAL])
         
         entities.append(
             CurrencySensor(hass, name, compare_, scan_interval)
