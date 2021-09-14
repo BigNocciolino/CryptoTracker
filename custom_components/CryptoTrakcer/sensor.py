@@ -29,14 +29,11 @@ from .const import (
     ATTRIBUTION,
     CONF_COMPARE,
     DOMAIN,
-    CONF_SCAN_INTERVAL,
 )
 
 
 _LOGGER = logging.getLogger(__name__)
-
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): cv.number,
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
@@ -85,7 +82,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     entities = []
 
-    scan_interval = timedelta(seconds=config.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL))
+    scan_interval = DEFAULT_SCAN_INTERVAL
 
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
