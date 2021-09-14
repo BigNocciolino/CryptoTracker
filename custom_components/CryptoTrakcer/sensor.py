@@ -36,7 +36,7 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Optional(CONF_SCAN_INTERVAL, default=timedelta(seconds=DEFAULT_SCAN_INTERVAL)): cv.positive_time_period,
+    vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): cv.positive_time_period,
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
         cv.ensure_list,
         [
