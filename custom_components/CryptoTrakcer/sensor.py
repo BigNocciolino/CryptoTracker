@@ -1,12 +1,11 @@
 import requests
 import json
-from collections import defaultdict
-from datetime import timedelta
 import logging
 from homeassistant.util import Throttle
 
 from homeassistant.components.sensor import (
     PLATFORM_SCHEMA,
+    SCAN_INTERVAL,
     SensorEntity,
     SensorEntityDescription,
     STATE_CLASS_MEASUREMENT,
@@ -30,6 +29,7 @@ from .const import (
     DOMAIN,
 )
 
+SCAN_INTERVAL = DEFAULT_SCAN_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
@@ -76,27 +76,25 @@ def parse_unit_of_mesurament(compare):
 
     return s[1].upper()
 
-def setup_platform(hass, config, add_entities, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the currency sensor"""
 
     entities = []
-
-    scan_interval = DEFAULT_SCAN_INTERVAL
 
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
 
         entities.append(
-            CurrencySensor(hass, name, compare_, scan_interval)
+            CurrencySensor(hass, name, compare_)
         )
 
-    add_entities(entities, True)
+    async_add_entities(entities, True)
 
 class CurrencySensor(SensorEntity):
     """Main class for curency sensor"""
 
-    def __init__(self, hass, name, compare, interval):
+    def __init__(self, hass, name, compare):
         """Inizialize sensor"""
         self._state = STATE_UNKNOWN
         self._name = name
@@ -109,7 +107,7 @@ class CurrencySensor(SensorEntity):
                 state_class=STATE_CLASS_MEASUREMENT,
             )
         )
-        self.update = Throttle(interval)(self._update)
+        self.update = self._update
 
     @property
     def name(self):
