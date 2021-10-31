@@ -3,7 +3,6 @@ import json
 from collections import defaultdict
 from datetime import timedelta
 import logging
-import string
 from homeassistant.util import Throttle
 
 from homeassistant.components.sensor import (
@@ -45,32 +44,32 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     )
 })
 
-url = "https://api.cryptonator.com/api/ticker/{0}"
+URL = "https://api.cryptonator.com/api/ticker/{0}"
 
-def getData(compare):
+def get_data(compare):
     """Get The request from the api"""
 
-    parsedUrl = url.format(compare)
+    parsed_url = URL.format(compare)
     #The headers are used to simulate a human request
-    req = requests.get(parsedUrl, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"}) 
+    req = requests.get(parsed_url, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"})
 
-    respParsed = ""
+    resp_parsed = ""
     if (req.ok):
         jsone = req.json()
         resp = json.dumps(jsone)
-        respParsed = json.loads(resp)
+        resp_parsed = json.loads(resp)
     else:
         _LOGGER.error("Cannot perform the request")
 
 
-    if (respParsed["success"] == True):
-        return respParsed["ticker"]["price"]
+    if (resp_parsed["success"]):
+        return resp_parsed["ticker"]["price"]
     else:
-        _LOGGER.warn("Request unsuccessful")
-        _LOGGER.error(respParsed["error"])
-        return respParsed["error"]
+        _LOGGER.warning("Cannot perform the request")
+        _LOGGER.error(resp_parsed["error"])
+        return resp_parsed["error"]
 
-def parseUnitOfMesurament(compare):
+def parse_unit_of_mesurament(compare):
     """Parse the input for the unit of mesurament"""
 
     s = compare.split("-")
@@ -87,7 +86,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
-        
+
         entities.append(
             CurrencySensor(hass, name, compare_, scan_interval)
         )
@@ -95,7 +94,8 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     add_entities(entities, True)
 
 class CurrencySensor(SensorEntity):
-    
+    """Main class for curency sensor"""
+
     def __init__(self, hass, name, compare, interval):
         """Inizialize sensor"""
         self._state = STATE_UNKNOWN
@@ -104,6 +104,7 @@ class CurrencySensor(SensorEntity):
         self._compare = compare
         self.entity_description = (
             SensorEntityDescription(
+                # Enable long term data
                 key = "crypto",
                 state_class=STATE_CLASS_MEASUREMENT,
             )
@@ -123,7 +124,7 @@ class CurrencySensor(SensorEntity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement of this entity, if any."""
-        return parseUnitOfMesurament(self._compare)
+        return parse_unit_of_mesurament(self._compare)
 
     @property
     def state(self):
@@ -138,4 +139,4 @@ class CurrencySensor(SensorEntity):
     def _update(self):
         """Get the latest update fron the api"""
 
-        self._state = getData(self._compare)
+        self._state = get_data(self._compare)
