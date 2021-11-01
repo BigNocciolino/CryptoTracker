@@ -1,5 +1,5 @@
 [![GitHub Activity](https://img.shields.io/github/commit-activity/y/PepegaBruh/Cryptotracker?style=for-the-badge)](https://github.com/PepegaBruh/CryptoTracker/commits/main)
-
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 # CryptoTracker
 
 This integration use the [Cryptonator api](https://www.cryptonator.com/api), that's cover 300+ cryptocurrencies from 16 exchanges.
