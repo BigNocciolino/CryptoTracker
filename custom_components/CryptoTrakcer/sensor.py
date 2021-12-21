@@ -53,6 +53,7 @@ def get_data(compare):
     #The headers are used to simulate a human request
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
+    req = ""
     try:
         req = requests.get(parsed_url, headers=headers, timeout=10)
         req.raise_for_status()
