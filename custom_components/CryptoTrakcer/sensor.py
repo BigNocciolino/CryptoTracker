@@ -21,6 +21,7 @@ from homeassistant.const import (
 )
 
 from .const import (
+    URL,
     DEFAULT_COMPARE,
     ICON,
     DEFAULT_SCAN_INTERVAL,
@@ -44,7 +45,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     )
 })
 
-URL = "https://api.cryptonator.com/api/ticker/{0}"
 
 def get_data(compare):
     """Get The request from the api"""
