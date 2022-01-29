@@ -9,7 +9,7 @@ CONF_COMPARE = "compare"
 
 ICON = "mdi:cash-multiple"
 
-DEFAULT_SCAN_INTERVAL = timedelta(seconds=45)
+DEFAULT_SCAN_INTERVAL = timedelta(seconds=60)
 
 ATTRIBUTION = "Data provided by cryptonator api"
 

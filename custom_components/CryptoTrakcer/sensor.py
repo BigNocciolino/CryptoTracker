@@ -51,8 +51,7 @@ def get_data(compare):
 
     parsed_url = URL.format(compare)
     #The headers are used to simulate a human request
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-
+    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0'}
     req = ""
     try:
         req = requests.get(parsed_url, headers=headers, timeout=10)
