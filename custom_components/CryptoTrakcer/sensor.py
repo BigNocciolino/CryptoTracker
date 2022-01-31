@@ -56,14 +56,8 @@ def get_data(compare):
     try:
         req = requests.get(parsed_url, headers=headers, timeout=10)
         req.raise_for_status()
-    except requests.exceptions.HTTPError as errh:
-        _LOGGER.error(errh)
-    except requests.exceptions.ConnectionError as errc:
-        _LOGGER.error(errc)
-    except requests.exceptions.Timeout as errt:
-        _LOGGER.error(errt)
-    except requests.exceptions.RequestException as err:
-        _LOGGER.error(err)
+    except Exception as e:
+        _LOGGER.error(e)
 
     resp_parsed = ""
     if (req.status_code == 200):
@@ -88,6 +82,7 @@ def parse_unit_of_mesurament(compare):
 
     return s[1].upper()
 
+# See https://github.com/custom-components/feedparser/blob/master/custom_components/feedparser/sensor.py
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the currency sensor"""
 
