@@ -21,6 +21,7 @@ from homeassistant.const import (
 )
 
 from .const import (
+    URL,
     DEFAULT_COMPARE,
     ICON,
     DEFAULT_SCAN_INTERVAL,
@@ -44,30 +45,35 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     )
 })
 
-URL = "https://api.cryptonator.com/api/ticker/{0}"
 
 def get_data(compare):
     """Get The request from the api"""
 
     parsed_url = URL.format(compare)
     #The headers are used to simulate a human request
-    req = requests.get(parsed_url, headers={"User-Agent": "Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization; rv:1.4) Gecko/20030624 Netscape/7.1 (ax)"})
+    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0'}
+    req = ""
+    try:
+        req = requests.get(parsed_url, headers=headers, timeout=10)
+        req.raise_for_status()
+    except Exception as e:
+        _LOGGER.error(e)
 
     resp_parsed = ""
-    if (req.ok):
+    if (req.status_code == 200):
+        #The request is ok
         jsone = req.json()
         resp = json.dumps(jsone)
         resp_parsed = json.loads(resp)
-    else:
-        _LOGGER.error("Cannot perform the request")
 
-
-    if (resp_parsed["success"]):
-        return resp_parsed["ticker"]["price"]
+        if (resp_parsed["success"]):
+            return resp_parsed["ticker"]["price"]
+        else:
+            _LOGGER.warning("Recivied an error in the ticker")
+            _LOGGER.error(resp_parsed["error"])
+            return resp_parsed["error"]
     else:
-        _LOGGER.warning("Cannot perform the request")
-        _LOGGER.error(resp_parsed["error"])
-        return resp_parsed["error"]
+        _LOGGER.error(f"Request returned a bad error code {req.status_code}")
 
 def parse_unit_of_mesurament(compare):
     """Parse the input for the unit of mesurament"""
@@ -76,6 +82,7 @@ def parse_unit_of_mesurament(compare):
 
     return s[1].upper()
 
+# See https://github.com/custom-components/feedparser/blob/master/custom_components/feedparser/sensor.py
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the currency sensor"""
 

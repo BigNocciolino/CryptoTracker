@@ -89,9 +89,23 @@ name:             | `string` | cryptostate  |You can set the name for this senso
 
 ## Available fiat currency 
 
-| Fiat currency | Abbrviation |
+| Fiat currency | Abbreviation |
 |:--------------:|:-----------:
-|US Dollar       | (USD)      |
-|Euro            | (EUR)      |
-|Ruble           |  (RUR)     |
-|British Pound Sterling| (GBP)|
+| Armenian Dram | AMD |
+| Australian dollar | AUD |
+| Bosnia and Herzegovina convertible mark | BAM |
+| Brazilian real | BRL |
+| Canadian dollar | CAD |
+| Euro | EUR |
+| Pound sterling | GBP |
+| Gambian dalasi | GMD |
+| Indonesian rupiah | IDR |
+| Japanese yen | JPY |
+| Kazakhstani tenge | KZT |
+| Nigerian naira | NGN | 
+| Polish złoty | PLN |
+| Russian ruble | RUB |
+| Solomon Islands dollar | SBD | 
+| Turkish lira | TRY |
+| Ukrainian hryvnia | UAH |
+| United States dollar | USD |
