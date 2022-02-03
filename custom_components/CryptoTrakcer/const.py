@@ -9,10 +9,10 @@ CONF_COMPARE = "compare"
 
 ICON = "mdi:cash-multiple"
 
-DEFAULT_SCAN_INTERVAL = timedelta(seconds=120)
+DEFAULT_SCAN_INTERVAL = timedelta(seconds=60)
 
 ATTRIBUTION = "Data provided by cryptonator api"
 
 DEFAULT_COMPARE = "doge-eur"
 
-DOMAIN = "cryptostate"
+DOMAIN = "cryptotracker"
