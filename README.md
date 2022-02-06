@@ -1,10 +1,8 @@
 [![GitHub Activity](https://img.shields.io/github/commit-activity/y/PepegaBruh/Cryptotracker?style=for-the-badge)](https://github.com/PepegaBruh/CryptoTracker/commits/main)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
-# CryptoTracker
+# CryptoTracker ⚠️  ⚠️  ⚠️ 
 
-This integration use the [Cryptonator api](https://www.cryptonator.com/api), that's cover 300+ cryptocurrencies from 16 exchanges.
-
-You can use it to track the price of a cryptocurrency and you can customize it as you see fit
+⚠️ Given the latest issues with the API, I am rewriting the project in spite of the API written by [fawazahmed0](https://github.com/fawazahmed0/currency-api). At the moment the component is not working !!!
 
 # Installation
 
