@@ -45,17 +45,16 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     )
 })
 
-
 def get_data(compare):
     """Get The request from the api"""
 
     parsed_url = URL.format(compare)
     #The headers are used to simulate a human request
     headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0'}
+
     req = ""
     try:
         req = requests.get(parsed_url, headers=headers, timeout=10)
-        req.raise_for_status()
     except Exception as e:
         _LOGGER.error(e)
 
@@ -69,11 +68,11 @@ def get_data(compare):
         if (resp_parsed["success"]):
             return resp_parsed["ticker"]["price"]
         else:
-            _LOGGER.warning("Recivied an error in the ticker")
+            _LOGGER.warning("Recivied an error in the ticker, if the issue persist consider to open a ticket")
             _LOGGER.error(resp_parsed["error"])
-            return resp_parsed["error"]
+            return False
     else:
-        _LOGGER.error(f"Request returned a bad error code {req.status_code}")
+        return False
 
 def parse_unit_of_mesurament(compare):
     """Parse the input for the unit of mesurament"""
@@ -82,7 +81,6 @@ def parse_unit_of_mesurament(compare):
 
     return s[1].upper()
 
-# See https://github.com/custom-components/feedparser/blob/master/custom_components/feedparser/sensor.py
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the currency sensor"""
 
@@ -144,4 +142,9 @@ class CurrencySensor(SensorEntity):
     def _update(self):
         """Get the latest update fron the api"""
 
-        self._state = get_data(self._compare)
+        data = get_data(self._compare)
+
+        if data != False:
+            self._state = data
+        else: 
+            return False
