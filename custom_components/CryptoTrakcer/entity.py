@@ -4,7 +4,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import DOMAIN, NAME, VERSION, ATTRIBUTION
 
 
-class IntegrationBlueprintEntity(CoordinatorEntity):
+class CryptoTrackerEntity(CoordinatorEntity):
     def __init__(self, coordinator, config_entry):
         super().__init__(coordinator)
         self.config_entry = config_entry
@@ -29,5 +29,6 @@ class IntegrationBlueprintEntity(CoordinatorEntity):
         return {
             "attribution": ATTRIBUTION,
             # "id": str(self.coordinator.data.get("id")),
+            # "date": str(self.coordinator.data.get("date")),
             "integration": DOMAIN,
         }

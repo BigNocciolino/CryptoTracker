@@ -2,16 +2,16 @@
 from homeassistant.components.sensor import SensorEntity
 
 from .const import DEFAULT_NAME, DOMAIN
-from .entity import IntegrationBlueprintEntity
+from .entity import CryptoTrackerEntity
 
 
 async def async_setup_entry(hass, entry, async_add_devices):
     """Setup sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    async_add_devices([IntegrationBlueprintSensor(coordinator, entry)])
+    async_add_devices([CryptoTrackerSensor(coordinator, entry)])
 
 
-class IntegrationBlueprintSensor(IntegrationBlueprintEntity, SensorEntity):
+class CryptoTrackerSensor(CryptoTrackerEntity, SensorEntity):
     """integration_blueprint Sensor class."""
 
     @property
@@ -22,6 +22,7 @@ class IntegrationBlueprintSensor(IntegrationBlueprintEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the native value of the sensor."""
+        # TODO redifine default value,
         return self.coordinator.data["eur"]
 
     @property
