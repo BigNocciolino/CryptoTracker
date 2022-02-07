@@ -15,4 +15,4 @@ ATTRIBUTION = "Data provided by cryptonator api"
 
 DEFAULT_COMPARE = "doge-eur"
 
-DOMAIN = "cryptotracker"
+DOMAIN = "cryptostate"
