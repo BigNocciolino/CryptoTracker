@@ -8,7 +8,7 @@ from homeassistant.core import HomeAssistant, Config
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from .api import CryptoTrackerApiClient
-from .const import DOMAIN, CONF_COMPARE
+from .const import DOMAIN, CONF_BASE, CONF_CRYPTO
 
 SCAN_INTERVAL = timedelta(seconds=30)
 
@@ -26,13 +26,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     if hass.data.get(DOMAIN) is None:
         hass.data.setdefault(DOMAIN, {})
 
-    compare = entry.data.get(CONF_COMPARE)
-    # compare = compare.split("-")
-    _LOGGER.info("COMPARE: %s", compare)
+    crypto = entry.data.get(CONF_CRYPTO)
+    base = entry.data.get(CONF_BASE)
 
     # TODO remove hardcoded client definition
     session = async_get_clientsession(hass)
-    client = CryptoTrackerApiClient(crypto="btc", base="eur", session=session)
+    client = CryptoTrackerApiClient(crypto=crypto, base=base, session=session)
 
     coordinator = CryptoTrackerUpdateCoordinator(hass, client=client)
     await coordinator.async_refresh()

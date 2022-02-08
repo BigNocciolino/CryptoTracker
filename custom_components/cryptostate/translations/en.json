@@ -4,7 +4,7 @@
         "step": {
             "user": {
                 "title": "CryptoTracker",
-                "description": "If you need help with the configuration have a look here: https://github.com/custom-components/integration_blueprint",
+                "description": "If you need help, go on the component page: https://github.com/BigNocciolino/CryptoTracker",
                 "data": {
                     "name": "Name",
                     "compare": "Compare"
@@ -12,10 +12,7 @@
             }
         },
         "error": {
-            "invalid_format": "Formato invalido"
-        },
-        "abort": {
-            "single_instance_allowed": "Only a single instance is allowed."
+            "invalid_format": "Invalid format, for a list of supported currencies see: https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
         }
     }
 }

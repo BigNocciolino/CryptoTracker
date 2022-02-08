@@ -8,7 +8,7 @@ class CryptoTrackerEntity(CoordinatorEntity):
     def __init__(self, coordinator, config_entry):
         super().__init__(coordinator)
         self.config_entry = config_entry
-
+        
     @property
     def unique_id(self):
         """Return a unique ID to use for this entity."""
@@ -28,7 +28,6 @@ class CryptoTrackerEntity(CoordinatorEntity):
         """Return the state attributes."""
         return {
             "attribution": ATTRIBUTION,
-            # "id": str(self.coordinator.data.get("id")),
-            # "date": str(self.coordinator.data.get("date")),
+            "date": str(self.coordinator.data.get("date")),
             "integration": DOMAIN,
         }
