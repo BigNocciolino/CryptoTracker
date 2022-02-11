@@ -10,7 +10,7 @@ ATTRIBUTION = "Data provided by https://github.com/fawazahmed0/currency-api#read
 
 ICON = "mdi:cash-multiple"
 
-DEFAULT_SCAN_INTERVAL = timedelta(days=1)
+DEFAULT_SCAN_INTERVAL = timedelta(hours=12)
 
 CONF_BASE = "base"
 CONF_CRYPTO = "crypto"
