@@ -1,7 +1,7 @@
 """Sensor platform for integration_blueprint."""
 from homeassistant.components.sensor import SensorEntity
 
-from .const import DOMAIN
+from .const import DOMAIN, ICON
 from homeassistant.const import CONF_NAME
 from .entity import CryptoTrackerEntity
 
@@ -34,4 +34,4 @@ class CryptoTrackerSensor(CryptoTrackerEntity, SensorEntity):
     @property
     def icon(self):
         """Return the icon of the sensor."""
-        return "mdi:format-quote-close"
+        return ICON
