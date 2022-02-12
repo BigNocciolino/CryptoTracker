@@ -1,5 +1,9 @@
 """BlueprintEntity class"""
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.components.sensor import (
+    SensorEntityDescription,
+    STATE_CLASS_MEASUREMENT,
+)
 
 from .const import DOMAIN, NAME, VERSION, ATTRIBUTION
 
@@ -8,6 +12,9 @@ class CryptoTrackerEntity(CoordinatorEntity):
     def __init__(self, coordinator, config_entry):
         super().__init__(coordinator)
         self.config_entry = config_entry
+        self.entity_description = SensorEntityDescription(
+            key="crypto", state_class=STATE_CLASS_MEASUREMENT
+        )
         
     @property
     def unique_id(self):
