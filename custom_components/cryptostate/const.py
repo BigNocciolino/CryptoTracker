@@ -18,8 +18,8 @@ CONF_CRYPTO = "crypto"
 DEFAULT_NAME = "basecrypto"
 
 # With this url we can get all the currency names that are available
-# ALL_CURR_URL = (
-#     "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
-# )
+ALL_CURR_URL = (
+    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
+)
 # We format this url with the vale we want to convert the currency with
 BASED_CURR_VALUE_URL = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/{crypto}/{base}.json"
