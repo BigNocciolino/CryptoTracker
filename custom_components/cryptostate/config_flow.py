@@ -61,7 +61,6 @@ class CryptoTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             session = async_create_clientsession(self.hass)
             client = CryptoTrackerApiClient(crypto=crypto, base=base, session=session)
             currencies = await client.async_get_currecy_list()
-            _LOGGER.info(currencies)
             if crypto in currencies:
                 if base in currencies:
                     return True
