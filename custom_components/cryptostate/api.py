@@ -1,10 +1,11 @@
 """Crypto trakcer api client"""
+from email import header
 import logging
 import asyncio
 import socket
 from typing import Optional
 import aiohttp
-from .const import BASED_CURR_VALUE_URL
+from .const import BASED_CURR_VALUE_URL, ALL_CURR_URL
 
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -23,13 +24,21 @@ class CryptoTrackerApiClient:
     async def async_get_data(self) -> dict:
         """Get the data from the api"""
         url = BASED_CURR_VALUE_URL.format(crypto=self._crypto, base=self._base)
-        return await self.api_wrapper(url, HEADERS)
+        return await self.api_wrapper(method="values", url=url, headers=HEADERS)
 
-    async def api_wrapper(self, url: str, headers: dict = {}) -> dict:
+    async def async_get_currecy_list(self) -> dict:
+        url = ALL_CURR_URL
+        return await self.api_wrapper(method="currencies", url=url, headers=HEADERS)
+
+    async def api_wrapper(self, method: str, url: str, headers: dict = {}) -> dict:
         """Get information from the api"""
         try:
-            res = await self._session.get(url, headers=headers)
-            return await res.json()
+            if method == "values":
+                res = await self._session.get(url, headers=headers)
+                return await res.json()
+            if method == "currencies":
+                res = await self._session.get(url, headers=headers)
+                return await res.json()
         except asyncio.TimeoutError as exception:
             _LOGGER.error(
                 "Timeout error fetching information from %s - %s",

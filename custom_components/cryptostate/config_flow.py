@@ -2,8 +2,11 @@ from email.policy import default
 from homeassistant import config_entries
 from homeassistant.core import callback
 import voluptuous as vol
+
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from .const import DOMAIN, CONF_BASE, CONF_CRYPTO, DEFAULT_NAME
 from homeassistant.const import CONF_NAME
+from .api import CryptoTrackerApiClient
 
 
 class CryptoTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -16,8 +19,6 @@ class CryptoTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_user(self, user_input=None):
 
         self._errors = {}
-
-        # TODO validate and split values
 
         if user_input is not None:
             valid = await self._test_credentials(
@@ -56,4 +57,18 @@ class CryptoTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _test_credentials(self, crypto, base):
         """Return true if credentials is valid."""
-        return True
+        try:
+            session = async_create_clientsession(self.hass)
+            client = CryptoTrackerApiClient(crypto=crypto, base=base, session=session)
+            currencies = await client.async_get_currecy_list()
+            _LOGGER.info(currencies)
+            if crypto in currencies:
+                if base in currencies:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        except Exception:
+            pass
+        return False
