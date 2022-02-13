@@ -7,7 +7,8 @@
                 "description": "If you need help, go on the component page: https://github.com/BigNocciolino/CryptoTracker",
                 "data": {
                     "name": "Name",
-                    "compare": "Compare"
+                    "crypto": "Crypto",
+                    "base": "Base"
                 }
             }
         },
