@@ -49,7 +49,7 @@ class CryptoTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 {
                     vol.Required(CONF_CRYPTO, default=user_input[CONF_CRYPTO]): str,
                     vol.Required(CONF_BASE, default=user_input[CONF_BASE]): str,
-                    vol.Optional(CONF_NAME, default=DEFAULT_NAME): str,
+                    vol.Optional(CONF_NAME, default=user_input[CONF_NAME]): str,
                 }
             ),
             errors=self._errors,
