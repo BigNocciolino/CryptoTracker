@@ -29,7 +29,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     crypto = entry.data.get(CONF_CRYPTO)
     base = entry.data.get(CONF_BASE)
 
-    # TODO remove hardcoded client definition
     session = async_get_clientsession(hass)
     client = CryptoTrackerApiClient(crypto=crypto, base=base, session=session)
 
