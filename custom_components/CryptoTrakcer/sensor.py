@@ -5,7 +5,6 @@ from homeassistant.util import Throttle
 
 from homeassistant.components.sensor import (
     PLATFORM_SCHEMA,
-    SCAN_INTERVAL,
     SensorEntity,
     SensorEntityDescription,
     STATE_CLASS_MEASUREMENT,
@@ -18,6 +17,7 @@ from homeassistant.const import (
     CONF_NAME,
     STATE_UNKNOWN,
     CONF_RESOURCES,
+    CONF_SCAN_INTERVAL,
 )
 
 from .const import (
@@ -30,8 +30,6 @@ from .const import (
     DOMAIN,
 )
 
-SCAN_INTERVAL = DEFAULT_SCAN_INTERVAL
-
 _LOGGER = logging.getLogger(__name__)
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_RESOURCES, default=[]): vol.All(
@@ -40,6 +38,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
             vol.Schema({
                 vol.Required(CONF_COMPARE, default=DEFAULT_COMPARE): cv.string,
                 vol.Optional(CONF_NAME, default=DOMAIN): cv.string,
+                vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): cv.time_period,
             })
         ],
     )
@@ -89,9 +88,10 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     for resource in config[CONF_RESOURCES]:
         compare_ = resource[CONF_COMPARE]
         name = resource[CONF_NAME]
+        scan_interval = resource[CONF_SCAN_INTERVAL]
 
         entities.append(
-            CurrencySensor(hass, name, compare_)
+            CurrencySensor(hass, name, compare_, scan_interval)
         )
 
     async_add_entities(entities, True)
@@ -99,11 +99,12 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 class CurrencySensor(SensorEntity):
     """Main class for curency sensor"""
 
-    def __init__(self, hass, name, compare):
+    def __init__(self, hass, name, compare, scan_interval):
         """Inizialize sensor"""
         self._state = STATE_UNKNOWN
         self._name = name
         self._hass = hass
+        self._scan_interval = scan_interval
         self._compare = compare
         self.entity_description = (
             SensorEntityDescription(
