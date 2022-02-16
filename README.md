@@ -4,6 +4,8 @@
 
 ⚠️ Given the latest issues with the API, I am rewriting the project in spite of the API written by [fawazahmed0](https://github.com/fawazahmed0/currency-api). At the moment the component is not working !!!
 
+Development is happening in the branch [new_api](https://github.com/BigNocciolino/CryptoTracker/tree/new_api)
+
 # Installation
 
 This integrantion is in the default repo, so now you can found it in default hacs, searching it
