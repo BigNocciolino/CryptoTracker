@@ -1,0 +1,19 @@
+{
+    "config": {
+        "title": "Cryptotracker",
+        "step": {
+            "user": {
+                "title": "CryptoTracker",
+                "description": "If you need help, go on the component page: https://github.com/BigNocciolino/CryptoTracker",
+                "data": {
+                    "name": "Name",
+                    "crypto": "Crypto",
+                    "base": "Base"
+                }
+            }
+        },
+        "error": {
+            "invalid_format": "Invalid format, for a list of supported currencies see: https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
+        }
+    }
+}
