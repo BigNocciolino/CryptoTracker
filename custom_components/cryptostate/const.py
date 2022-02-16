@@ -21,5 +21,9 @@ DEFAULT_NAME = "basecrypto"
 ALL_CURR_URL = (
     "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
 )
+ALL_CURR_MIN_URL = (
+    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.min.json"
+)
 # We format this url with the vale we want to convert the currency with
 BASED_CURR_VALUE_URL = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/{crypto}/{base}.json"
+BASED_MIN_CURR_VALUE_URL = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/{crypto}/{base}.min.json"

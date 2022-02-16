@@ -5,7 +5,12 @@ import asyncio
 import socket
 from typing import Optional
 import aiohttp
-from .const import BASED_CURR_VALUE_URL, ALL_CURR_URL
+from .const import (
+    ALL_CURR_MIN_URL,
+    BASED_CURR_VALUE_URL,
+    ALL_CURR_URL,
+    BASED_MIN_CURR_VALUE_URL,
+)
 
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -24,20 +29,24 @@ class CryptoTrackerApiClient:
     async def async_get_data(self) -> dict:
         """Get the data from the api"""
         url = BASED_CURR_VALUE_URL.format(crypto=self._crypto, base=self._base)
-        return await self.api_wrapper(method="values", url=url, headers=HEADERS)
+        fall = BASED_MIN_CURR_VALUE_URL.format(crypto=self._crypto, base=self._base)
+        return await self.api_wrapper(url=url, fallback_url=fall, headers=HEADERS)
 
     async def async_get_currecy_list(self) -> dict:
         url = ALL_CURR_URL
-        return await self.api_wrapper(method="currencies", url=url, headers=HEADERS)
+        fall = ALL_CURR_MIN_URL
+        return await self.api_wrapper(url=url, fallback_url=fall, headers=HEADERS)
 
-    async def api_wrapper(self, method: str, url: str, headers: dict = {}) -> dict:
+    async def api_wrapper(
+        self, url: str, fallback_url: str, headers: dict = {}
+    ) -> dict:
         """Get information from the api"""
         try:
-            if method == "values":
-                res = await self._session.get(url, headers=headers)
+            res = await self._session.get(url, headers=headers)
+            if res.ok:
                 return await res.json()
-            if method == "currencies":
-                res = await self._session.get(url, headers=headers)
+            else:
+                res = await self._session.get(fallback_url, headers=headers)
                 return await res.json()
         except asyncio.TimeoutError as exception:
             _LOGGER.error(
