@@ -28,8 +28,6 @@ class CryptoTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 return self.async_create_entry(
                     title=user_input[CONF_NAME], data=user_input
                 )
-            else:
-                self._errors["base"] = "invalid_format"
 
             return await self._show_config_form(user_input)
 
@@ -65,8 +63,10 @@ class CryptoTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 if base in currencies:
                     return True
                 else:
+                    self._errors[CONF_BASE] = "invalid_base"
                     return False
             else:
+                self._errors[CONF_CRYPTO] = "invalid_crypto"
                 return False
         except Exception:
             pass
