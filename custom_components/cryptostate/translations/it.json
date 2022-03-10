@@ -13,7 +13,8 @@
             }
         },
         "error": {
-            "invalid_format": "Formato invalido, per una lista di monete supportate guarda: https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
+            "invalid_crypto": "Formato cryptovaluta invalido invalido, per una lista di monete supportate guarda: https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json",
+            "invalid_base": "Formato cryptovaluta invalido invalido, per una lista di monete supportate guarda: https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
         }
     }
 }
