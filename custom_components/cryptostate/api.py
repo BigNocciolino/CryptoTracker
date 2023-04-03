@@ -31,20 +31,22 @@ class CryptoTrackerApiClient:
         self._base = base
         self._session = session
 
-    async def _format_urls(self):
+    def _format_urls(self):
         urls = []
         for url in SINGLE_CURR_URL:
-            url.format(crypto=self._crypto, base=self._base)
+            url = url.format(crypto=self._crypto, base=self._base)
             urls.append(url)
         return urls
 
     async def async_get_data(self) -> dict:
         """Get the data from the api"""
-        res = await self.api_wrapper(urls=await self._format_urls(), headers=HEADERS)
+        u = self._format_urls()
+        res = await self.api_wrapper(urls=u, headers=HEADERS)
         return res
 
     async def async_get_currecy_list(self) -> dict:
         res = await self.api_wrapper(urls=ALL_CURR_URLS, headers=HEADERS)
+        return res
 
     async def api_wrapper(
         self, urls: str = [], headers: dict = {}
