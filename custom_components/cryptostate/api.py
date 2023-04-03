@@ -6,7 +6,7 @@ import socket
 from typing import Optional
 import aiohttp
 from .const import (
-    SINGLE_CURR_URL
+    SINGLE_CURR_URL,
     ALL_CURR_URLS,
 )
 
