@@ -40,7 +40,7 @@ class CryptoTrackerApiClient:
 
     async def async_get_data(self) -> dict:
         """Get the data from the api"""
-        res = await self.api_wrapper(urls=self._format_urls(), headers=HEADERS)
+        res = await self.api_wrapper(urlss=await self._format_urls(), headers=HEADERS)
         return res
 
     async def async_get_currecy_list(self) -> dict:
