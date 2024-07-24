@@ -14,7 +14,7 @@ from .const import CONF_BASE, CONF_CRYPTO, DOMAIN
 SCAN_INTERVAL = timedelta(hours=3)
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
-
+PLATFORMS = ["sensor"]
 
 async def async_setup(hass: HomeAssistant, config: Config):
     """Set this integration using YAML is not supported."""
@@ -43,9 +43,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     if entry.options.get("sensor", True):
         coordinator.platforms.append("sensor")
-        hass.async_add_job(
-            hass.config_entries.async_forward_entry_setup(entry, "sensor")
-        )
+        await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
     return True
