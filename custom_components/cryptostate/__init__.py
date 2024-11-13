@@ -1,9 +1,12 @@
 """Crypto tracking."""
+
 from datetime import timedelta
 import logging
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import Config, HomeAssistant
+from homeassistant.const import Platform
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -14,9 +17,12 @@ from .const import CONF_BASE, CONF_CRYPTO, DOMAIN
 SCAN_INTERVAL = timedelta(hours=3)
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
-PLATFORMS = ["sensor"]
+PLATFORMS: list[Platform] = [
+    Platform.SENSOR,
+]
 
-async def async_setup(hass: HomeAssistant, config: Config):
+
+async def async_setup(hass: HomeAssistant, config: ConfigType):
     """Set this integration using YAML is not supported."""
     return True
 
@@ -70,7 +76,7 @@ class CryptoTrackerUpdateCoordinator(DataUpdateCoordinator):
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
     # coordinator = hass.data[DOMAIN][entry.entry_id]
-    unloaded = await hass.config_entries.async_unload_platforms(entry, "sensor")
+    unloaded = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if unloaded:
         hass.data[DOMAIN].pop(entry.entry_id)
 
