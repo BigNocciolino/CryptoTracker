@@ -21,7 +21,8 @@ PLATFORMS: list[Platform] = [
     Platform.SENSOR,
 ]
 
-async def async_setup(hass: HomeAssistant, config: Config):
+
+async def async_setup(hass: HomeAssistant, config: ConfigType):
     """Set this integration using YAML is not supported."""
     return True
 
