@@ -5,7 +5,7 @@ from datetime import timedelta
 
 NAME = "Crypto Tracker"
 DOMAIN = "cryptostate"
-VERSION = "2.0.0"
+VERSION = "2.1.2"
 ATTRIBUTION = "Data provided by https://github.com/fawazahmed0/currency-api#readme API"
 
 ICON = "mdi:cash-multiple"
